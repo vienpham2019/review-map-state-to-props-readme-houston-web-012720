@@ -17,6 +17,12 @@ class App extends Component {
     });
   }
 
+  handleOnClickCandy() {
+    this.props.store.dispatch({
+      type: 'GET_COUNT_OF_CANDY',
+    });
+  }
+
   render() {
     // debugger;
     return (
@@ -27,15 +33,21 @@ class App extends Component {
           <button onClick={() => this.handleOnClickUsers()}>
             Click to change user count
           </button>
-          <p>{this.props.items.length}</p>
+          <button onClick={() => this.handleOnClickCandy()}>
+            Click to add more candy
+          </button>
+          <p>{this.props.items[this.props.items.length - 1]}</p>
+          <p>{this.props.users[this.props.users.length - 1]}</p>
+          <p>{this.props.candy.join(", ")}</p>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  debugger;
-  return { items: state.items }
-}
+// const mapStateToProps = (state) => {
+//   console.log(state)
+//   // debugger;
+//   return { items: state.items, users: state.users }
+// }
 
-export default connect(mapStateToProps)(App);
+export default connect(state => {return {items : state.items , users: state.users , candy: state.candy}})(App);
